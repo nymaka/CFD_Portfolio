@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Submission</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+</head>
+<body>
+  <div class="container">
+    
+    <div class="header">
+      <h1>{{ assignment_title }}</h1>
+    </div>
+
+    <div class="assignment-summary">
+      <h2>Task Summary:</h2>
+      <p>{{ assignment_summary }}</p>
+    </div>
+
+    
+    <div class="user-submission">
+      <h2>Your Submission:</h2>
+      <p>{{ submission_text }}</p>
+    </div>
+
+   
+  </div>
+  {% include 'navbar.html' %}
+</body>
+</html>

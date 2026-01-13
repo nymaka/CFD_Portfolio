@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Assignment for {{ class_name }}</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #716E97; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 500px; 
+            background-color: #e5e5e5; 
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        h1 {
+            background-color: #f9b234; 
+            color: #000;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 1.5rem;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin: 15px 0;
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+        }
+
+        label {
+            font-size: 1rem;
+            color: #4a4a4a;
+        }
+
+        input[type="text"], textarea {
+            width: 95%; 
+            padding: 10px;
+            font-size: 0.9rem;
+            border: 2px solid #a09db1; 
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="text"]:focus, textarea:focus {
+            border-color: #6a5acd; 
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            background-color: #f9b234;
+            color: #000;
+            font-size: 1rem;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #5a4db0; 
+            color: #fff;
+        }
+
+        .messages {
+            margin-bottom: 15px;
+        }
+
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .alert.success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .alert.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container">
+        <h1>Create Assignment for {{ class_name }}</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="messages">
+                    {% for category, message in messages %}
+                        <div class="alert {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('add_assignment', class_name=class_name) }}" method="POST">
+            <div class="form-group">
+                <label for="title">Assignment Title:</label>
+                <input type="text" id="title" name="title" placeholder="Enter assignment title" maxlength="80" required>
+            </div>
+            <div class="form-group">
+                <label for="task">Assignment Task:</label>
+                <textarea id="task" name="task" rows="4" placeholder="Enter assignment details" required></textarea>
+            </div>
+            <button type="submit">Create Assignment</button>
+        </form>
+    </div>
+</body>
+</html>

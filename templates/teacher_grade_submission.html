@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Submission for {{ assignment_title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #716E97; 
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Main container styles */
+        .container {
+            background-color: #716E97; 
+            padding: 20px;
+            width: 800px;
+            border: 3px solid #A9A3C1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+        }
+
+        .header {
+            background-color: #f9b234;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            color: #333;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .form-section {
+            background-color: #dedfe4;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        input[type="number"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .submit-button {
+            background-color: #f9b234;
+            color: #333;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-button:hover {
+            background-color: #e0b832;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            color: #f9b234;
+            text-decoration: none;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Grade Submission for Assignment: {{ assignment_title }}</h1>
+        </div>
+
+        <h3>Student: {{ student_name }}</h3>
+
+        <div class="form-section">
+            <h4>Submission:</h4>
+            <p>{{ submission_text }}</p>
+
+            <form method="POST">
+                <div class="form-group">
+                    <label for="mark" class="form-label">Mark:</label>
+                    <input type="number" id="mark" name="mark" value="{{ current_mark if current_mark else '' }}" placeholder="Between 0 -100" required>
+                </div>
+                <div class="form-group">
+                    <label for="grade" class="form-label">Grade:</label>
+                    <input type="text" id="grade" name="grade" value="{{ current_grade if current_grade else '' }}" placeholder="A, B, C, D or E" required>
+                </div>
+                <div>
+                    <button type="submit" class="submit-button">Submit Grade</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="back-link">
+            <a href="{{ url_for('teacher_marksheet', assignment_id=assignment_id) }}">Back to Marksheet</a>
+        </div>
+    </div>
+    {% include 'navbar.html' %}
+</body>
+</html>

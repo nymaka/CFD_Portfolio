@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .navbar {
+            position: absolute;
+            top: 20px;
+            right: 10px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .navbar a, .navbar form button {
+            background-color: #f9b234;
+            color: #333333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .navbar a:hover, .navbar form button:hover {
+            background-color: #e0b832;
+        }
+
+        .navbar form {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <form action="{{ url_for('logout') }}" method="GET">
+            <button type="submit">Log Out</button>
+        </form>
+    </div>
+</body>
+</html>

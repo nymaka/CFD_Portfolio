@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CFD Student Management</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+
+    <div class="header">
+      <h1>CFD STUDENT MANAGEMENT</h1>
+    </div>
+
+    <div class="class-list">
+      <h2>List of all classes:</h2>
+
+      {% for class in classes %}
+      <div class="class-card">
+
+        <div class="class-name">
+ 
+          <a href="{{ url_for('assignments', class_name=class.name) }}">
+            <strong>{{ class.name }}</strong>
+          </a>
+        </div>
+
+        <div class="class-students">
+          <span>{{ class.total_students }} Students</span>
+        </div> 
+
+        <div class="assignment-details">
+          <p><strong>Assignment:</strong> {{ class.assignment if class.assignment else "No Assignment" }}</p>
+        </div>
+      </div>
+      {% endfor %}
+      
+      <div class="join-class-button">
+        <a href="{{ url_for('join_class') }}" class="button">Join Class</a>
+        <a href="{{ url_for('add_class') }}" class="button">Add Class (only for teachers)</a>
+      </div>
+      
+    </div>
+  </div>
+  {% include 'navbar.html' %}
+</body>
+</html>

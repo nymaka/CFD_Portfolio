@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marksheet for {{ class_name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #716E97; 
+            color: #F8F8F8; 
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #f9b234; 
+            color: #000;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 24px;
+        }
+
+        .view-graphs {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #F8F8F8;
+            color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #f9b234;
+            color: #000;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+        }
+
+        td.missing {
+            background-color: #F8D7DA; 
+            color: #721C24; 
+        }
+
+        td.completed {
+            background-color: #D4EDDA; 
+            color: #155724; 
+        }
+
+        td.date {
+            font-style: italic;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <h1>Marksheet for {{ class_name }}</h1>
+    
+
+    <div class="view-graphs">
+        <a href="{{ url_for('plot_marks', class_name=class_name) }}" class="button">View Graphs</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Assignment Title</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Your Answer</th>
+                <th>Submission Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for data in marksheet_data %}
+            <tr>
+                <td>{{ data.title }}</td>
+                <td class="{{ 'missing' if data.marks == 'Missing' else 'completed' }}">{{ data.marks }}</td>
+                <td>{{ data.grade if data.grade else '—' }}</td>
+                <td>{{ data.comments if data.comments else '—' }}</td>
+                <td class="date">{{ data.date if data.date else '—' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% include 'navbar.html' %}
+</body>
+</html>

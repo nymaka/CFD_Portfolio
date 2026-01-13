@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simulation Progress</title>
+    <script>
+        function updateProgress() {
+            fetch('/progress')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("progress").innerText = data.message;
+                    if (data.message.includes("Complete")) {
+                        window.location.href = "/download";
+                    } else {
+                        setTimeout(updateProgress, 1000);
+                    }
+                });
+        }
+        window.onload = updateProgress;
+    </script>
+</head>
+<body>
+    <h1>Simulation Progress</h1>
+    <p id="progress">Initializing...</p>
+    {% include 'navbar.html' %}
+</body>
+</html>

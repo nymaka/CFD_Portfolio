@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marksheet for {{ assignment_title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #716E97; 
+            color: #F8F8F8; 
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #f9b234; 
+            color: #000;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 24px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #F8F8F8; 
+            color: #333; 
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #f9b234; 
+            color: #000;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+        }
+
+        td.missing {
+            background-color: #F8D7DA; 
+            color: #721C24; 
+        }
+
+        td.completed {
+            background-color: #D4EDDA; 
+            color: #155724; 
+        }
+
+        td.time {
+            font-style: italic;
+            color: #555;
+        }
+
+        a {
+            color: #f9b234; 
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .view-graphs {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .plot-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff; 
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .plot-button:hover {
+            background-color: #0055b0; 
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Marksheet for Assignment: {{ assignment_title }}</h1>
+
+    <div class="view-graphs">
+        <a href="{{ url_for('plot_assignment_marks', assignment_id=assignment_id) }}" class="plot-button">View Graphs</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Submission Time</th>
+                <th>Action</th> 
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in marksheet_data %}
+            <tr>
+                
+                <td>
+                    <a href="{{ url_for('user_submissions', user_id=row.UserID) }}">
+                        {{ row.StudentName }}
+                    </a>
+                </td>
+                
+                <td class="{{ 'missing' if row.SubmissionMark is none else 'completed' }}">
+                    <a href="{{ url_for('plot_user_marks', user_id=row.UserID) }}">
+                        {{ row.SubmissionMark if row.SubmissionMark is not none else 'Not Graded' }}
+                    </a>
+                </td>
+                
+                <td>
+                    <a href="{{ url_for('plot_user_marks', user_id=row.UserID) }}">
+                        {{ row.SubmissionGrade if row.SubmissionGrade is not none else 'Not Graded' }}
+                    </a>
+                </td>
+                <td class="time">{{ row.SubmissionTime if row.SubmissionTime else 'Not Submitted' }}</td>
+                <td>
+                    
+                    <a href="{{ url_for('teacher_grade_submission', user_id=row.UserID, assignment_id=assignment_id) }}">
+                        Grade
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="back-link">
+        <a href="{{ url_for('teacher_assignments', class_name=session.get('class_name', '')) }}">Back to Assignments</a>
+    </div>
+    {% include 'navbar.html' %}
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submissions for User {{ user_id }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #716E97; 
+            color: #F8F8F8; 
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            background-color: #f9b234; 
+            color: #000;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 24px;
+        }
+
+        .view-graphs {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .plot-button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff; 
+            color: #FFF;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .plot-button:hover {
+            background-color: #0055b0; 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #F8F8F8;
+            color: #333;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            text-align: center;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #f9b234;
+            color: #000;
+            font-size: 18px;
+        }
+
+        td {
+            font-size: 16px;
+        }
+
+        td.missing {
+            background-color: #F8D7DA; 
+            color: #721C24; 
+        }
+
+        td.completed {
+            background-color: #D4EDDA; 
+            color: #155724; 
+        }
+
+        td.time {
+            font-style: italic;
+            color: #555;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Submissions for User {{ user_id }}</h1>
+
+    <div class="view-graphs">
+        <a href="{{ url_for('plot_user_marks', user_id=user_id) }}" class="plot-button">View Marks and Grades Visualization</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Assignment Title</th>
+                <th>Marks</th>
+                <th>Grade</th>
+                <th>Your Answer</th>
+                <th>Submission Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for submission in submissions %}
+            <tr>
+                <td>{{ submission.title }}</td>
+                <td class="{{ 'missing' if submission.marks == 'Not Graded' else 'completed' }}">{{ submission.marks }}</td>
+                <td>{{ submission.grade }}</td>
+                <td>{{ submission.answer }}</td>
+                <td class="time">{{ submission.time }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="back-link">
+        <a href="/">Back to Home</a>
+    </div>
+    {% include 'navbar.html' %}
+</body>
+</html>

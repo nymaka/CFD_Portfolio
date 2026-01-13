@@ -1,0 +1,90 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #716E97; 
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+}
+
+
+.container {
+  background-color: #8C88AD;
+  width: 800px;
+  border: 3px solid #A9A3C1; 
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  margin: 0 auto;
+}
+
+
+.header {
+  background-color: #f9b234;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: #333;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+
+.assignment-section {
+  background-color: #dedfe4; 
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+
+.assignment-card {
+  background-color: #fff; 
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+.assignment-title {
+  font-size: 18px; 
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.assignment-task {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+
+.assignment-stats {
+  font-size: 14px;
+  color: #333;
+}
+
+.assignment-link {
+  text-decoration: none;
+  color: inherit;
+}
+.assignment-link:hover {
+  background-color: #f0f0f0;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f9b234;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.button:hover {
+  background-color: #0056b3;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assignments for {{ class_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+  <style>
+    .assignment-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+    }
+    .assignment-card.completed {
+      background-color: #d4edda; 
+      border-color: #c3e6cb;     
+      
+    }
+    .completed .assignment-title::after {
+      content: " (Completed)";
+      color: green;
+      font-weight: bold;
+    }
+    .flash-message {
+      background-color: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+    }
+    .flash-message.warning {
+      background-color: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeeba;
+    }
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .marksheet-btn {
+      background-color: #007bff;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 3px;
+      font-size: 14px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-messages">
+          {% for category, message in messages %}
+            <div class="flash-message {{ category }}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="header button-container">
+      <h1>Assignments for {{ class_name }}</h1>
+      <a href="{{ url_for('marksheet', class_name=class_name) }}" class="marksheet-btn">View Marksheet</a>
+    </div>
+
+    <div class="assignment-section">
+      <h2>List of Assignments:</h2>
+
+      {% if assignments %}
+        {% for assignment in assignments %}
+          {% if assignment.is_submitted %}
+            <a href="{{ url_for('view_submission', assignment_id=assignment.id) }}" class="assignment-link">
+              <div class="assignment-card completed">
+          {% else %}
+            <a href="{{ url_for('submit_assignment', assignment_id=assignment.id) }}" class="assignment-link">
+              <div class="assignment-card">
+          {% endif %}
+
+            <div class="assignment-title">
+              <strong>{{ assignment.title }}</strong>
+            </div>
+
+            <div class="assignment-task">
+              <p>{{ assignment.task[:200] }}...</p>
+            </div>
+
+            <div class="assignment-stats">
+              <p><strong>{{ assignment.submitted_count }}</strong> Students Submitted</p>
+            </div>
+          </div>
+        </a>
+        {% endfor %}
+      {% else %}
+        <p>No assignments available for this class.</p>
+      {% endif %}
+    </div>
+  </div>
+  {% include 'navbar.html' %}
+</body>
+</html>

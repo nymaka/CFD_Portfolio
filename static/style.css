@@ -1,0 +1,234 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #716E97; 
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; 
+}
+
+
+.header {
+  background-color: #f9b234; 
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 24px;
+}
+
+
+.class-list {
+  margin-top: 20px;
+}
+
+.class-card {
+  display: flex;
+  align-items: center;
+  background-color: #F0EFF4; 
+  margin-bottom: 15px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid #A9A3C1; 
+}
+
+.class-name {
+  background-color: #D6D2E1; 
+  color: #333; 
+  font-size: 18px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  width: 150px;
+  text-align: center;
+  margin-right: 15px;
+}
+
+.class-students {
+  font-size: 16px;
+  font-weight: bold;
+  color: #716E97; 
+  width: 150px;
+  text-align: center;
+}
+
+.assignment-details {
+  font-size: 14px;
+  color: #333; 
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #716E97;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #9798B7;
+  padding: 20px;
+  width: 600px; 
+  border: 3px solid #A9A3C1;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.header {
+  background-color: #f9b234;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 24px;
+}
+
+
+.form-list {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F3F3F7;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #A9A3C1;
+  border-radius: 5px;
+}
+
+.form-group label {
+  width: 150px;
+  background-color: #D6D6E8;
+  color: #333;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  outline: none;
+  background-color: white;
+  color: #333;
+}
+
+button[type="submit"] {
+  background-color: #F9B234;
+  color: #333;
+  font-weight: bold;
+  padding: 15px;
+  text-align: center;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.login-wrapper {
+  background-color: #9798B7;
+  padding: 20px;
+  width: 400px;
+  border: 5px solid #D6D6E8;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-wrapper .header {
+  background-color: #f9b234;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  padding: 15px 0;
+  font-size: 24px;
+}
+
+.login-wrapper .flash-messages {
+  margin: 20px 0;
+}
+
+.login-wrapper .alert {
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.login-wrapper .alert-success {
+  background-color: #DFF2BF;
+  color: #4F8A10;
+}
+
+.login-wrapper .alert-error {
+  background-color: #FFBABA;
+  color: #D8000C;
+}
+
+.login-wrapper .form-group {
+  margin-bottom: 15px;
+}
+
+.login-wrapper .form-group label {
+  display: block;
+  font-weight: bold;
+  color: #333;
+}
+
+.login-wrapper .form-group input[type="email"],
+.login-wrapper .form-group input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #D6D6E8;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.login-wrapper button {
+  width: 100%;
+  padding: 10px;
+  background-color: #f9b234;
+  color: #333;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f9b234;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.button:hover {
+  background-color: #0056b3;
+}
+
+.register-form {
+  margin-top: 20px;
+}
+
+.form-GDPR {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F3F3F7;
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #A9A3C1;
+  border-radius: 5px;
+}

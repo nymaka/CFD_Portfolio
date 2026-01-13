@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher View - Assignments for {{ class_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style1.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #716E97;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #9798b7;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #333;
+    }
+
+    .assignment-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    .assignment-card.completed {
+      background-color: #d4edda; /* Green background for completed assignments */
+      border-color: #c3e6cb;
+    }
+
+    .assignment-title {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .assignment-task {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .assignment-stats {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .assignment-card:hover {
+      background-color: #e6f7ff;
+      border-color: #90caf9;
+    }
+
+    .sort-toggle {
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .sort-toggle a {
+      margin: 0 5px;
+      text-decoration: none;
+      font-size: 14px;
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9b234;
+      color: #000;
+    }
+
+    .sort-toggle a.active {
+      background-color: #5a4db0;
+      color: #fff;
+    }
+
+    .center {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .buttonAssignment {
+      margin-bottom: 20px;
+      background-color: #f9b234;
+      display: inline-block;
+      padding: 10px 20px;
+      color: black;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Teacher View - Assignments for {{ class_name }}</h1>
+    </div>
+
+    <div class=center>
+        <a href="{{ url_for('add_assignment', class_name=class_name) }}" class="buttonAssignment">Add new assignment</a>
+    </div>
+
+    <div class="sort-toggle">
+        <a href="{{ url_for('teacher_assignments', class_name=class_name) }}"
+            class="{{ 'active' if current_order != 'desc' and current_order != 'asc' else ''}}">
+            Sort by Completion
+        </a>
+        <a href="{{ url_for('teacher_assignments_sorted', class_name=class_name, order='asc') }}"
+            class="{{ 'active' if current_order == 'asc' else '' }}">
+            Sort Ascending
+        </a>
+        <a href="{{ url_for('teacher_assignments_sorted', class_name=class_name, order='desc') }}"
+            class="{{ 'active' if current_order == 'desc' else '' }}">
+            Sort Descending
+        </a>
+    </div>
+
+    <div class="assignment-section">
+      <h2>List of Assignments:</h2>
+
+      {% if assignments %}
+        {% for assignment in assignments %}
+        <div class="assignment-card {% if assignment.submitted_count > 0 %}completed{% endif %}">
+          <div class="assignment-title">
+            <strong>{{ assignment.title }}</strong>
+          </div>
+
+          <div class="assignment-task">
+            <p>{{ assignment.task[:200] }}...</p>
+          </div>
+
+          <div class="assignment-stats">
+            <p><strong>{{ assignment.submitted_count }}</strong> Students Submitted</p>
+            <p><em>Last Submission: {{ assignment.latest_submission if assignment.latest_submission else "No Submissions" }}</em></p>
+          </div>
+        </div>
+        {% endfor %}
+      {% else %}
+        <p>No assignments available for this class.</p>
+      {% endif %}
+    </div>
+  </div>
+  {% include 'navbar.html' %}
+</body>
+</html>

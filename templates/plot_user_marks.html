@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Marks and Grades Visualization</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #716E97; 
+            color: #ECF0F1; 
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        canvas {
+            margin: 20px auto; 
+            display: block; 
+            background-color: #34495E; 
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        h1, h2 {
+            color: #f9b234; 
+        }
+
+        .chart-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #f9b234; 
+        }
+
+        .back-link {
+            margin-top: 20px;
+        }
+
+        .back-link a {
+            text-decoration: none;
+            color: #1ABC9C; 
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .back-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Marks and Grades for User {{ user_id }}</h1>
+
+        <h3 class="predicted-grade">
+            Predicted Grade: 
+            <span style="font-weight: bold;">{{ graph_data.predicted_grade or 'N/A' }}</span>
+        </h3>
+
+        <div>
+            <h2 class="chart-title">Marks Visualization</h2>
+            <canvas id="marksChart" width="800" height="400"></canvas>
+        </div>
+
+        <div>
+            <h2 class="chart-title">Grades Visualization</h2>
+            <canvas id="gradesChart" width="800" height="400"></canvas>
+        </div>
+
+        <div class="back-link">
+            <a href="{{ url_for('user_submissions', user_id=user_id) }}">Back to Submissions</a>
+        </div>
+    </div>
+
+    <script>
+        const graphData = {{ graph_data|tojson }};
+        const marksCtx = document.getElementById('marksChart').getContext('2d');
+        new Chart(marksCtx, {
+            type: 'line',
+            data: {
+                labels: graphData.titles,
+                datasets: [
+                    {
+                        label: 'Marks',
+                        data: graphData.marks,
+                        borderColor: 'rgba(41, 128, 255, 1)', 
+                        backgroundColor: 'rgba(41, 128, 185, 0.2)', 
+                        borderWidth: 2,
+                        fill: true
+                    },
+                    {
+                        label: 'Average Marks',
+                        data: Array(graphData.marks.length).fill(graphData.avg_mark),
+                        borderColor: 'rgba(230, 70, 60, 1)', 
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#ECF0F1' 
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Marks Over Time',
+                        color: '#f9b234', 
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#ECF0F1' 
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#ECF0F1' 
+                        }
+                    }
+                }
+            }
+        });
+
+        const gradesCtx = document.getElementById('gradesChart').getContext('2d');
+        new Chart(gradesCtx, {
+            type: 'bar',
+            data: {
+                labels: graphData.titles,
+                datasets: [
+                    {
+                        label: 'Grades',
+                        data: graphData.grades,
+                        backgroundColor: 'rgba(39, 174, 96, 0.8)', 
+                        borderColor: 'rgba(39, 174, 96, 1)', 
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Average Grade',
+                        data: Array(graphData.grades.length).fill(graphData.avg_grade),
+                        type: 'line',
+                        borderColor: 'rgba(241, 196, 15, 1)', 
+                        borderDash: [5, 5],
+                        borderWidth: 2,
+                        fill: false
+                    },
+                    {
+                        label: 'Predicted Grade',
+                        data: Array(graphData.grades.length).fill(graphData.predicted_grade),
+                        type: 'line',
+                        borderColor: 'rgba(255, 0, 0, 1)',
+                        borderDash: [3, 0],
+                        borderWidth: 3,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#ECF0F1' 
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Grades Over Time (A=5, B=4, C=3, D=2, E=1, U=0)',
+                        color: '#f9b234', 
+                        font: {
+                            size: 18
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        ticks: {
+                            color: '#ECF0F1' 
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        max: 5.5, 
+                        ticks: {
+                            stepSize: 1, 
+                            color: '#ECF0F1' 
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% include 'navbar.html' %}
+</body>
+</html>
